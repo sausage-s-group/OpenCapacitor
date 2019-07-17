@@ -1,0 +1,18 @@
+[
+  {
+    "modid": "refined_energetic_storage",
+    "name": "Refined Energetic Storage",
+    "description": "RES",
+    "version": "${version}",
+    "mcversion": "${mcversion}",
+    "url": "",
+    "updateUrl": "",
+    "authorList": [
+      "Yaossg, switefaster"
+    ],
+    "credits": "Sausage",
+    "logoFile": "",
+    "screenshots": [],
+    "dependencies": []
+  }
+]
