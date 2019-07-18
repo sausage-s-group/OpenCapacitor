@@ -2,15 +2,17 @@ package open_capacitor.tile;
 
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTUtil;
+import net.minecraft.util.ITickable;
 import net.minecraft.util.math.BlockPos;
 import sausage_core.api.core.tile.TileBase;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public class TileTestDevice extends TileBase implements IDevice {
+public class TileTestDevice extends TileBase implements IDevice, ITickable {
 
     private BlockPos controllerPos = null;
+    private boolean needUpdate = false;
 
     public TileTestDevice() {
         this.network = true;
@@ -25,7 +27,7 @@ public class TileTestDevice extends TileBase implements IDevice {
     @Override
     public void setControllerPos(@Nullable BlockPos pos) {
         controllerPos = pos;
-        this.notifyClient();
+        needUpdate = true;
     }
 
     @Override
@@ -46,5 +48,13 @@ public class TileTestDevice extends TileBase implements IDevice {
             compound.removeTag("controller");
         }
         return compound;
+    }
+
+    @Override
+    public void update() {
+        if (!world.isRemote && needUpdate) {
+            this.notifyClient();
+            needUpdate = false;
+        }
     }
 }

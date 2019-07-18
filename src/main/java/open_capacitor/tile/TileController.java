@@ -56,7 +56,7 @@ public class TileController extends TileBase implements ITickable {
 
     @Override
     public void update() {
-        if (needUpdate) {
+        if (!world.isRemote && needUpdate) {
             this.notifyClient();
             needUpdate = false;
         }

@@ -61,8 +61,10 @@ public class BlockController extends BlockContainer {
 
     @Override
     public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack) {
-        worldIn.notifyNeighborsOfStateChange(pos, this, false);
-        BlockDeviceBase.updatedBlocks.clear();
+        if (!worldIn.isRemote) {
+            worldIn.notifyNeighborsOfStateChange(pos, this, false);
+            BlockDeviceBase.updatedBlocks.clear();
+        }
     }
 
     @Override
@@ -79,8 +81,10 @@ public class BlockController extends BlockContainer {
     @Override
     public void breakBlock(World worldIn, @Nonnull BlockPos pos, @Nonnull IBlockState state) {
         super.breakBlock(worldIn, pos, state);
-        worldIn.notifyNeighborsOfStateChange(pos, this, false);
-        BlockDeviceBase.updatedBlocks.clear();
+        if (!worldIn.isRemote) {
+            worldIn.notifyNeighborsOfStateChange(pos, this, false);
+            BlockDeviceBase.updatedBlocks.clear();
+        }
     }
 
 }
