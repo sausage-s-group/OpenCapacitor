@@ -1,0 +1,4 @@
+
+tile.open_capacitor.controller.name=控制器
+tile.open_capacitor.test_device.name=测试设备
+item.open_capacitor.chip.name=芯片

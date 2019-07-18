@@ -1,8 +1,8 @@
 [
   {
-    "modid": "refined_energetic_storage",
-    "name": "Refined Energetic Storage",
-    "description": "RES",
+    "modid": "open_capacitor",
+    "name": "OpenCapacitor",
+    "description": "",
     "version": "${version}",
     "mcversion": "${mcversion}",
     "url": "",

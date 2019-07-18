@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "normal": {
+      "model": "open_capacitor:test_device"
+    }
+  }
+}
