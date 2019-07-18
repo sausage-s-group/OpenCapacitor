@@ -34,6 +34,12 @@ public class BlockController extends BlockContainer {
     }
 
     @Override
+    @Nonnull
+    public EnumBlockRenderType getRenderType(IBlockState state) {
+        return EnumBlockRenderType.MODEL;
+    }
+
+    @Override
     public boolean canPlaceBlockAt(World worldIn, @Nonnull BlockPos pos) {
         boolean result = true;
         for (EnumFacing facing : EnumFacing.values()) {
@@ -60,19 +66,6 @@ public class BlockController extends BlockContainer {
     }
 
     @Override
-    public void breakBlock(World worldIn, @Nonnull BlockPos pos, @Nonnull IBlockState state) {
-        super.breakBlock(worldIn, pos, state);
-        worldIn.notifyNeighborsOfStateChange(pos, this, false);
-        BlockDeviceBase.updatedBlocks.clear();
-    }
-
-    @Override
-    @Nonnull
-    public EnumBlockRenderType getRenderType(IBlockState state) {
-        return EnumBlockRenderType.MODEL;
-    }
-
-    @Override
     public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
         if (!worldIn.isRemote) {
             playerIn.sendMessage(new TextComponentString("Server Devices: " + ((TileController) Objects.requireNonNull(worldIn.getTileEntity(pos))).getDevicePos().toString()));
@@ -82,4 +75,12 @@ public class BlockController extends BlockContainer {
         }
         return true;
     }
+
+    @Override
+    public void breakBlock(World worldIn, @Nonnull BlockPos pos, @Nonnull IBlockState state) {
+        super.breakBlock(worldIn, pos, state);
+        worldIn.notifyNeighborsOfStateChange(pos, this, false);
+        BlockDeviceBase.updatedBlocks.clear();
+    }
+
 }

@@ -1,13 +1,15 @@
-package refined_energetic_storage.block;
+package refined_energetic_storage.init;
 
 import net.minecraft.block.Block;
-import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.fml.common.registry.GameRegistry.ObjectHolder;
 import refined_energetic_storage.RefinedEnergeticStorage;
+import refined_energetic_storage.block.BlockController;
+import refined_energetic_storage.block.BlockTestDevice;
 
 import static sausage_core.api.util.common.SausageUtils.nonnull;
 
-@GameRegistry.ObjectHolder(RefinedEnergeticStorage.MODID)
-public class BlockLoader {
+@ObjectHolder(RefinedEnergeticStorage.MODID)
+public class RESBlocks {
 
     public static final Block controller = nonnull();
     public static final Block test_device = nonnull();

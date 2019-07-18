@@ -12,6 +12,7 @@ import net.minecraft.util.EnumBlockRenderType;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import refined_energetic_storage.init.RESBlocks;
 import refined_energetic_storage.tile.IRESDevice;
 import refined_energetic_storage.tile.TileController;
 
@@ -105,7 +106,7 @@ public abstract class BlockDeviceBase extends BlockContainer {
         for (EnumFacing facing : EnumFacing.values()) {
             BlockPos neighbor = pos.offset(facing);
             if (worldIn.getTileEntity(neighbor) instanceof TileController) {
-                worldIn.notifyNeighborsOfStateChange(neighbor, BlockLoader.controller, false);
+                worldIn.notifyNeighborsOfStateChange(neighbor, RESBlocks.controller, false);
                 updatedBlocks.clear();
                 return;
             } else if (worldIn.getTileEntity(neighbor) instanceof IRESDevice) {
@@ -119,7 +120,7 @@ public abstract class BlockDeviceBase extends BlockContainer {
             updatedBlocks.add(pos);
             worldIn.notifyNeighborsOfStateChange(pos, this, false);
             updatedBlocks.clear();
-            worldIn.notifyNeighborsOfStateChange(controllerPos, BlockLoader.controller, false);
+            worldIn.notifyNeighborsOfStateChange(controllerPos, RESBlocks.controller, false);
             updatedBlocks.clear();
         }
     }
@@ -143,7 +144,7 @@ public abstract class BlockDeviceBase extends BlockContainer {
         }
         super.breakBlock(worldIn, pos, state);
         if (controllerPos != null) {
-            worldIn.notifyNeighborsOfStateChange(controllerPos, BlockLoader.controller, false);
+            worldIn.notifyNeighborsOfStateChange(controllerPos, RESBlocks.controller, false);
             updatedBlocks.clear();
             TileController tileController = Objects.requireNonNull((TileController) worldIn.getTileEntity(controllerPos));
             tileController.removeDevice(pos);
