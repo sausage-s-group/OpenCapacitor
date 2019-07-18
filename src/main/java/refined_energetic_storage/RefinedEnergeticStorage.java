@@ -18,9 +18,9 @@ import javax.annotation.Nonnull;
 @Mod.EventBusSubscriber
 public class RefinedEnergeticStorage {
 
-    public final static String MODID = "refined_energetic_storage";
-    public final static String NAME = "Refined Energetic Storage";
-    public final static String VERSION = "1.0";
+    public static final String MODID = "refined_energetic_storage";
+    public static final String NAME = "Refined Energetic Storage";
+    public static final String VERSION = "1.0";
     public static final IBRegistryManager IB = new IBRegistryManager(RefinedEnergeticStorage.MODID,
             new CreativeTabs(RefinedEnergeticStorage.MODID + ".main") {
                 @Override
