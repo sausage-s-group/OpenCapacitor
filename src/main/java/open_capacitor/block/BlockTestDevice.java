@@ -9,7 +9,7 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
-import open_capacitor.tile.IRESDevice;
+import open_capacitor.tile.IDevice;
 import open_capacitor.tile.TileTestDevice;
 
 import javax.annotation.Nonnull;
@@ -31,10 +31,10 @@ public class BlockTestDevice extends BlockDeviceBase {
     @Override
     public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
         if (!worldIn.isRemote) {
-            playerIn.sendMessage(new TextComponentString("Server Controller: " + ((IRESDevice) Objects.requireNonNull(worldIn.getTileEntity(pos))).getControllerPos()));
+            playerIn.sendMessage(new TextComponentString("Server Controller: " + ((IDevice) Objects.requireNonNull(worldIn.getTileEntity(pos))).getControllerPos()));
         }
         if (worldIn.isRemote) {
-            playerIn.sendMessage(new TextComponentString("Client Controller: " + ((IRESDevice) Objects.requireNonNull(worldIn.getTileEntity(pos))).getControllerPos()));
+            playerIn.sendMessage(new TextComponentString("Client Controller: " + ((IDevice) Objects.requireNonNull(worldIn.getTileEntity(pos))).getControllerPos()));
         }
         return true;
     }

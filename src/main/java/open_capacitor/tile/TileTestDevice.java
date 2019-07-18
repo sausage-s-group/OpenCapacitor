@@ -8,7 +8,7 @@ import sausage_core.api.core.tile.TileBase;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public class TileTestDevice extends TileBase implements IRESDevice {
+public class TileTestDevice extends TileBase implements IDevice {
 
     private BlockPos controllerPos = null;
 

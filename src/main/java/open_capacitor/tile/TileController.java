@@ -34,7 +34,7 @@ public class TileController extends TileBase implements ITickable {
     }
 
     public void addNewDevice(BlockPos pos) {
-        if (world.getTileEntity(pos) instanceof IRESDevice) {
+        if (world.getTileEntity(pos) instanceof IDevice) {
             devicePos.add(pos);
             needUpdate = true;
         }

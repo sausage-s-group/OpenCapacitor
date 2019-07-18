@@ -14,7 +14,7 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
-import open_capacitor.tile.IRESDevice;
+import open_capacitor.tile.IDevice;
 import open_capacitor.tile.TileController;
 
 import javax.annotation.Nonnull;
@@ -50,8 +50,8 @@ public class BlockController extends BlockContainer {
                     result = false;
                     break;
                 }
-                if (tile instanceof IRESDevice) {
-                    IRESDevice device = (IRESDevice) tile;
+                if (tile instanceof IDevice) {
+                    IDevice device = (IDevice) tile;
                     result = device.getControllerPos() == null;
                 }
             }

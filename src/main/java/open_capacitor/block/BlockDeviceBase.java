@@ -13,7 +13,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import open_capacitor.init.OCBlocks;
-import open_capacitor.tile.IRESDevice;
+import open_capacitor.tile.IDevice;
 import open_capacitor.tile.TileController;
 
 import javax.annotation.Nonnull;
@@ -42,8 +42,8 @@ public abstract class BlockDeviceBase extends BlockContainer {
             BlockPos neighbor = pos.offset(facing);
             TileEntity tile = worldIn.getTileEntity(neighbor);
             if (tile != null) {
-                if (tile instanceof IRESDevice) {
-                    IRESDevice device = (IRESDevice) tile;
+                if (tile instanceof IDevice) {
+                    IDevice device = (IDevice) tile;
                     if (device.getControllerPos() != null && firstFound && !neighbor.equals(controllerPos)) {
                         result = false;
                         break;
@@ -69,7 +69,7 @@ public abstract class BlockDeviceBase extends BlockContainer {
     @SuppressWarnings("deprecation")
     @Override
     public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
-        IRESDevice device = Objects.requireNonNull((IRESDevice) worldIn.getTileEntity(pos));
+        IDevice device = Objects.requireNonNull((IDevice) worldIn.getTileEntity(pos));
         if (!updatedBlocks.contains(pos)) {
             if (blockIn instanceof BlockController) {
                 if (worldIn.getTileEntity(fromPos) == null) {
@@ -78,8 +78,8 @@ public abstract class BlockDeviceBase extends BlockContainer {
                     device.setControllerPos(fromPos);
                     TileController tileController = Objects.requireNonNull((TileController) worldIn.getTileEntity(fromPos));
                     tileController.addNewDevice(pos);
-                } else if (worldIn.getTileEntity(fromPos) instanceof IRESDevice) {
-                    IRESDevice fromDevice = Objects.requireNonNull((IRESDevice) worldIn.getTileEntity(fromPos));
+                } else if (worldIn.getTileEntity(fromPos) instanceof IDevice) {
+                    IDevice fromDevice = Objects.requireNonNull((IDevice) worldIn.getTileEntity(fromPos));
                     device.setControllerPos(fromDevice.getControllerPos());
                     if (device.getControllerPos() != null) {
                         TileController tileController = Objects.requireNonNull((TileController) worldIn.getTileEntity(device.getControllerPos()));
@@ -109,8 +109,8 @@ public abstract class BlockDeviceBase extends BlockContainer {
                 worldIn.notifyNeighborsOfStateChange(neighbor, OCBlocks.controller, false);
                 updatedBlocks.clear();
                 return;
-            } else if (worldIn.getTileEntity(neighbor) instanceof IRESDevice) {
-                IRESDevice device = Objects.requireNonNull((IRESDevice) worldIn.getTileEntity(neighbor));
+            } else if (worldIn.getTileEntity(neighbor) instanceof IDevice) {
+                IDevice device = Objects.requireNonNull((IDevice) worldIn.getTileEntity(neighbor));
                 if (controllerPos == null) {
                     controllerPos = device.getControllerPos();
                 }
@@ -130,8 +130,8 @@ public abstract class BlockDeviceBase extends BlockContainer {
         BlockPos controllerPos = null;
         for (EnumFacing facing : EnumFacing.values()) {
             BlockPos neighbor = pos.offset(facing);
-            if (worldIn.getTileEntity(neighbor) instanceof IRESDevice) {
-                IRESDevice device = Objects.requireNonNull((IRESDevice) worldIn.getTileEntity(neighbor));
+            if (worldIn.getTileEntity(neighbor) instanceof IDevice) {
+                IDevice device = Objects.requireNonNull((IDevice) worldIn.getTileEntity(neighbor));
                 if (controllerPos == null) {
                     controllerPos = device.getControllerPos();
                 }
