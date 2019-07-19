@@ -1,64 +1,37 @@
 package open_capacitor.tile;
 
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagList;
 import net.minecraft.nbt.NBTUtil;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.math.BlockPos;
+import net.minecraftforge.common.util.Constants;
 import sausage_core.api.core.tile.TileBase;
 import sausage_core.api.util.nbt.NBTs;
 
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
+import java.util.stream.Collectors;
 
-public class TileController extends TileBase implements ITickable {
-
-    private Set<BlockPos> devicePos = new HashSet<>();
-    private boolean needUpdate = false;
+public class TileController extends TileDeviceBase implements ITickable {
+    public Set<BlockPos> devices = new HashSet<>();
 
     public TileController() {
-        this.network = true;
+        network = true;
     }
 
     @Override
     public void readFromNBT(NBTTagCompound nbt) {
-        NBTTagList tagList = nbt.getTagList("devices", 10);
-        tagList.forEach(tag -> devicePos.add(NBTUtil.getPosFromTag((NBTTagCompound) tag)));
         super.readFromNBT(nbt);
+        devices = NBTs.stream(nbt.getTagList("devices", Constants.NBT.TAG_COMPOUND))
+                .map(NBTTagCompound.class::cast)
+                .map(NBTUtil::getPosFromTag)
+                .collect(Collectors.toSet());
     }
 
     @Override
     public NBTTagCompound writeToNBT(NBTTagCompound nbt) {
-        nbt.setTag("devices", devicePos.stream().map(NBTUtil::createPosTag).collect(NBTs.toNBTList()));
+        nbt.setTag("devices", devices.stream().map(NBTUtil::createPosTag).collect(NBTs.toNBTList()));
         return super.writeToNBT(nbt);
-    }
-
-    public void addNewDevice(BlockPos pos) {
-        if (world.getTileEntity(pos) instanceof IDevice) {
-            devicePos.add(pos);
-            needUpdate = true;
-        }
-    }
-
-    public void removeDevice(BlockPos pos) {
-        devicePos.remove(pos);
-        needUpdate = true;
-    }
-
-    public void removeAllDevice(BlockPos pos) {
-        devicePos.clear();
-        needUpdate = true;
-    }
-
-    public Set<BlockPos> getDevicePos() {
-        return devicePos;
-    }
-
-    @Override
-    public void update() {
-        if (!world.isRemote && needUpdate) {
-            this.notifyClient();
-            needUpdate = false;
-        }
     }
 }

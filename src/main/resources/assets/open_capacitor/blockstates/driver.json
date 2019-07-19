@@ -1,7 +1,7 @@
 {
   "variants": {
     "normal": {
-      "model": "open_capacitor:test_device"
+      "model": "open_capacitor:driver"
     }
   }
 }

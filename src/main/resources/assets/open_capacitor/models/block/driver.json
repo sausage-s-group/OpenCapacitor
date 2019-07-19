@@ -1,6 +1,6 @@
 {
   "parent": "block/cube_all",
   "textures": {
-    "all": "open_capacitor:blocks/test_device"
+    "all": "open_capacitor:blocks/driver"
   }
 }

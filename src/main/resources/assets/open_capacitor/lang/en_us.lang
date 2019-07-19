@@ -1,4 +1,4 @@
 
 tile.open_capacitor.controller.name=Controller
-tile.open_capacitor.test_device.name=Test Device
 item.open_capacitor.chip.name=Chip
+tile.open_capacitor.driver.name=Driver
