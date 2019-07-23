@@ -2,17 +2,14 @@ package open_capacitor.tile;
 
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTUtil;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.math.BlockPos;
 import sausage_core.api.core.tile.TileBase;
 
-import java.util.EnumSet;
 import java.util.Optional;
 
 public abstract class TileDeviceBase extends TileBase implements ITickable {
-    protected static final BlockPos INVALID = BlockPos.ORIGIN.down();
+    public static final BlockPos INVALID = BlockPos.ORIGIN.down();
     public BlockPos controller = INVALID;
 
     public TileDeviceBase() {
@@ -42,6 +39,6 @@ public abstract class TileDeviceBase extends TileBase implements ITickable {
 
     @Override
     public void update() {
-
+        this.notifyClient();
     }
 }
