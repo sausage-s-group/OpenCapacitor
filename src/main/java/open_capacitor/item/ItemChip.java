@@ -11,6 +11,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import open_capacitor.util.EnergySize;
 import open_capacitor.util.UnitPrefix;
+import sausage_core.api.util.nbt.NBTs;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -39,17 +40,21 @@ public class ItemChip extends Item {
 
     public ItemStack with(EnergySize size) {
         ItemStack stack = new ItemStack(this, 1, 0);
-        stack.setTagCompound(size.toNBT());
+        stack.setTagCompound(NBTs.of("size", size.toNBT()));
         return stack;
+    }
+
+    public EnergySize sizeOf(ItemStack stack) {
+        NBTTagCompound nbt = stack.getTagCompound();
+        if (nbt != null) {
+            return EnergySize.fromNBT(nbt.getCompoundTag("size"));
+        }
+        return EnergySize.EMPTY;
     }
 
     @Override
     @SideOnly(Side.CLIENT)
     public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
-        NBTTagCompound nbt = stack.getTagCompound();
-        if (nbt != null) {
-            EnergySize size = EnergySize.fromNBT(nbt);
-            tooltip.add(size.toString());
-        }
+         tooltip.add(sizeOf(stack).toString());
     }
 }

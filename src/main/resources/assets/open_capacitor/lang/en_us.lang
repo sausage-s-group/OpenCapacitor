@@ -2,3 +2,5 @@
 tile.open_capacitor.controller.name=Controller
 item.open_capacitor.chip.name=Chip
 tile.open_capacitor.driver.name=Driver
+item.open_capacitor.disc.name=Disc
+item.open_capacitor.disc_housing.name=Disc Housing

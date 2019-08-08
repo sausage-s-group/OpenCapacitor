@@ -26,7 +26,7 @@ public class OpenCapacitor {
             new CreativeTabs(OpenCapacitor.MODID) {
                 @Override
                 @Nonnull
-                public ItemStack getTabIconItem() {
+                public ItemStack createIcon() {
                     return new ItemStack(Blocks.GRASS);
                 }
             }
@@ -34,17 +34,11 @@ public class OpenCapacitor {
     @Instance(OpenCapacitor.MODID)
     public static OpenCapacitor instance;
 
-    @SubscribeEvent
-    public static void loadModels(ModelRegistryEvent event) {
-        IB.loadAllModel();
-    }
-
     public static Logger logger;
 
     @EventHandler
     public void preInit(FMLPreInitializationEvent event) {
         logger = event.getModLog();
-        SausageUtils.loadingInformation(NAME, VERSION, MODID);
         OCContent.preInit(event);
     }
 

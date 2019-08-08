@@ -14,7 +14,6 @@ public class OCContent {
     public static void preInit(FMLPreInitializationEvent event) {
         OCBlocks.init();
         OCItems.init();
-        OpenCapacitor.IB.registerAll();
     }
 
     public static void init(FMLInitializationEvent event) {

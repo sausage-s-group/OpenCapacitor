@@ -1,7 +1,17 @@
 {
-  "variants": {
-    "normal": {
-      "model": "open_capacitor:driver"
+  "defaults": {
+    "model": "cube_all",
+    "textures": {
+      "all": "open_capacitor:blocks/driver"
     }
+  },
+  "forge_marker": 1,
+  "variants": {
+    "inventory": [
+      {}
+    ],
+    "normal": [
+      {}
+    ]
   }
 }

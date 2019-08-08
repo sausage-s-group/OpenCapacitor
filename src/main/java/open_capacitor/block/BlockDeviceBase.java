@@ -26,7 +26,7 @@ public abstract class BlockDeviceBase extends BlockContainer {
     }
 
     @Override
-    @Nonnull
+    @Deprecated
     public EnumBlockRenderType getRenderType(IBlockState state) {
         return EnumBlockRenderType.MODEL;
     }

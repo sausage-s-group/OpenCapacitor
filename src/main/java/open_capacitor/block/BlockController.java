@@ -32,8 +32,8 @@ public class BlockController extends BlockContainer {
         return new TileController();
     }
 
-    @Nonnull
     @Override
+    @Deprecated
     public EnumBlockRenderType getRenderType(IBlockState state) {
         return EnumBlockRenderType.MODEL;
     }

@@ -10,6 +10,8 @@ public class EnergySize {
     public final int size;
     public final UnitPrefix prefix;
 
+    public static final EnergySize EMPTY = new EnergySize(0, UnitPrefix.NONE);
+
     public EnergySize(int size, UnitPrefix prefix) {
         this.size = size;
         this.prefix = prefix;

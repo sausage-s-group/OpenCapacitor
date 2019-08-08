@@ -2,3 +2,5 @@
 tile.open_capacitor.controller.name=控制器
 item.open_capacitor.chip.name=芯片
 tile.open_capacitor.driver.name=驱动器
+item.open_capacitor.disc.name=硬盘
+item.open_capacitor.disc_housing.name=硬盘外壳
