@@ -39,15 +39,15 @@ public class ItemChip extends Item {
     }
 
     public ItemStack with(EnergySize size) {
-        ItemStack stack = new ItemStack(this, 1, 0);
-        stack.setTagCompound(NBTs.of("size", size.toNBT()));
+        ItemStack stack = new ItemStack(this);
+        stack.setTagCompound(NBTs.of("sizeUFMBigInt", size.toNBT()));
         return stack;
     }
 
     public EnergySize sizeOf(ItemStack stack) {
         NBTTagCompound nbt = stack.getTagCompound();
         if (nbt != null) {
-            return EnergySize.fromNBT(nbt.getCompoundTag("size"));
+            return EnergySize.fromNBT(nbt.getCompoundTag("sizeUFMBigInt"));
         }
         return EnergySize.EMPTY;
     }

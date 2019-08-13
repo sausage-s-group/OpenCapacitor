@@ -3,8 +3,10 @@ package open_capacitor.util;
 import net.minecraft.nbt.NBTTagCompound;
 import sausage_core.api.util.nbt.NBTs;
 
+import java.math.BigInteger;
+
 /**
- * represents size instead of storage
+ * represents sizeUFMBigInt instead of storage
  */
 public class EnergySize {
     public final int size;
@@ -23,10 +25,14 @@ public class EnergySize {
     }
 
     public NBTTagCompound toNBT() {
-        return NBTs.of("size", NBTs.of(size), "prefix", NBTs.of(prefix.ordinal()));
+        return NBTs.of("sizeUFMBigInt", NBTs.of(size), "prefix", NBTs.of(prefix.ordinal()));
     }
 
     public static EnergySize fromNBT(NBTTagCompound nbt) {
-        return new EnergySize(nbt.getInteger("size"), UnitPrefix.values()[nbt.getInteger("prefix")]);
+        return new EnergySize(nbt.getInteger("sizeUFMBigInt"), UnitPrefix.values()[nbt.getInteger("prefix")]);
+    }
+
+    public BigInteger limit() {
+        return prefix.maxOf(size);
     }
 }

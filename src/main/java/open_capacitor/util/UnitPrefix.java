@@ -1,5 +1,9 @@
 package open_capacitor.util;
 
+import sausage_core.api.util.math.UFMBigInt;
+
+import java.math.BigInteger;
+
 public enum UnitPrefix {
     NONE(""),
     // SI prefixes
@@ -17,7 +21,7 @@ public enum UnitPrefix {
     Dogga,
     Corydon,
     Xero;
-    final String abbr;
+    public final String abbr;
 
     UnitPrefix() {
         abbr = String.valueOf(name().charAt(0));
@@ -27,10 +31,18 @@ public enum UnitPrefix {
         this.abbr = abbr;
     }
 
-    //10^n instead of 2^n
     public int exponent() {
         return 3 * ordinal();
     }
+
+    public UFMBigInt get() {
+        return UFMBigInt.zeroOf(ordinal() / 6 + 1);
+    }
+
+    public BigInteger maxOf(int size) {
+        return BigInteger.valueOf(size).multiply(BigInteger.TEN.pow(exponent()));
+    }
+
 
     @Override
     public String toString() {
