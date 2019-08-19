@@ -23,12 +23,12 @@ public class OCEnergyStorage {
         energy = UFMBigInt.fromLongs(NBTs.getLongArray(nbt, "energy"));
     }
 
-    public void fill(UFMBigInt other) {
-        energy.fill(other, limit);
+    public UFMBigInt fill(UFMBigInt other) {
+        return energy.fill(other, limit);
     }
 
-    public void drain(UFMBigInt other) {
-        energy.drain(other);
+    public UFMBigInt drain(UFMBigInt other) {
+        return energy.drain(other);
     }
 
     public NBTTagCompound toNBT() {

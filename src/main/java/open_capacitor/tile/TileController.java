@@ -5,11 +5,9 @@ import net.minecraft.nbt.NBTUtil;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.common.util.Constants;
-import sausage_core.api.core.tile.TileBase;
 import sausage_core.api.util.nbt.NBTs;
 
 import java.util.HashSet;
-import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 

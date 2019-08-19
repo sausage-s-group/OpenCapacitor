@@ -5,7 +5,8 @@ import net.minecraftforge.fml.common.registry.GameRegistry.ObjectHolder;
 import open_capacitor.item.ItemChip;
 import open_capacitor.item.ItemDisc;
 
-import static open_capacitor.OpenCapacitor.*;
+import static open_capacitor.OpenCapacitor.IB;
+import static open_capacitor.OpenCapacitor.MODID;
 import static sausage_core.api.util.common.SausageUtils.nonnull;
 
 @ObjectHolder(MODID)
