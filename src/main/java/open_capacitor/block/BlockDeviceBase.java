@@ -1,6 +1,5 @@
 package open_capacitor.block;
 
-import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -31,44 +30,6 @@ public abstract class BlockDeviceBase extends BlockContainer {
         return EnumBlockRenderType.MODEL;
     }
 
-    @SuppressWarnings("deprecation")
-    @Override
-    public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
-        if (!worldIn.isRemote) {
-            TileDeviceBase deviceBase = nonnull(((TileDeviceBase) worldIn.getTileEntity(pos)));
-            if (blockIn instanceof BlockController) {
-                boolean requireUpdate = false;
-                TileEntity fromTile = worldIn.getTileEntity(fromPos);
-                if (fromTile == null && deviceBase.controller != INVALID) {
-                    deviceBase.controller = INVALID;
-                    requireUpdate = true;
-                } else if (fromTile instanceof TileController) {
-                    if (!fromPos.equals(deviceBase.controller)) {
-                        deviceBase.controller = fromPos;
-                        deviceBase.getController().ifPresent(tileController -> tileController.devices.add(pos));
-                        requireUpdate = true;
-                    }
-                } else if (fromTile instanceof TileDeviceBase) {
-                    BlockPos fromController = ((TileDeviceBase) fromTile).controller;
-                    if (!deviceBase.controller.equals(fromController)) {
-                        deviceBase.controller = fromController;
-                        deviceBase.getController().ifPresent(tileController -> tileController.devices.add(pos));
-                        requireUpdate = true;
-                    }
-                }
-                if (requireUpdate) {
-                    worldIn.notifyNeighborsOfStateChange(pos, blockIn, false);
-                }
-            } else if (blockIn instanceof BlockDeviceBase) {
-                deviceBase.getController().ifPresent(tileController -> tileController.devices.remove(pos));
-                if (deviceBase.controller != INVALID) {
-                    deviceBase.controller = INVALID;
-                    worldIn.notifyNeighborsOfStateChange(pos, this, false);
-                }
-            }
-        }
-    }
-
     @Override
     public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack) {
         if (!worldIn.isRemote) {
@@ -85,8 +46,8 @@ public abstract class BlockDeviceBase extends BlockContainer {
                 }
             }
             if (controllerPos != INVALID) {
-                worldIn.notifyNeighborsOfStateChange(pos, this, false);
-                worldIn.notifyNeighborsOfStateChange(controllerPos, OCBlocks.controller, false);
+                nonnull(((TileDeviceBase) worldIn.getTileEntity(pos))).notifyNeighbor(this);
+                nonnull(((TileController) worldIn.getTileEntity(controllerPos))).notifyNeighbor(OCBlocks.controller);
             }
         }
     }
@@ -96,8 +57,8 @@ public abstract class BlockDeviceBase extends BlockContainer {
         if (!worldIn.isRemote) {
             TileDeviceBase deviceBase = nonnull(((TileDeviceBase) worldIn.getTileEntity(pos)));
             if (deviceBase.controller != INVALID) {
-                worldIn.notifyNeighborsOfStateChange(pos, this, false);
-                worldIn.notifyNeighborsOfStateChange(deviceBase.controller, OCBlocks.controller, false);
+                nonnull(((TileDeviceBase) worldIn.getTileEntity(pos))).notifyNeighbor(this);
+                nonnull(((TileController) worldIn.getTileEntity(deviceBase.controller))).notifyNeighbor(OCBlocks.controller);
             }
         }
         super.breakBlock(worldIn, pos, state);
